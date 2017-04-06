@@ -12,8 +12,9 @@ Thumbs.db
 *.log
 .vscode
 
-#Grunt
+#Dependencies
 /node_modules/
+/public/lib/
 
 #Output
 /dist/
