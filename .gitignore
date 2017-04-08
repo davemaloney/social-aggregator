@@ -12,11 +12,14 @@ Thumbs.db
 *.log
 .vscode
 
-#Dependencies
+# Dependencies
 /node_modules/
 /public/lib/
 
-#Output
+# Secrets
+/config/secrets/*.json
+
+# Output
 /dist/
 
 # large/disallowed file types

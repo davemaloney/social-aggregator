@@ -2,6 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
+router.use('/', (req, res, next) => {
+  if (!req.user) {
+    res.redirect('/');
+  }
+  next();
+});
 /* GET users listing. */
 router.get('/', (req, res) => {
   res.render(
@@ -9,9 +15,9 @@ router.get('/', (req, res) => {
     {
       user: {
         name: req.user.displayName,
-        image: req.user._json.image.url,
+        image: req.user.image,
       },
-    },
+    }
   );
 });
 
