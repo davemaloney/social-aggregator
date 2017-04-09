@@ -19,6 +19,8 @@ $ npm start
 
 ### Facebook
 
+<https://developers.facebook.com/apps/>
+
 ### Twitter
 
 <https://apps.twitter.com/>

@@ -35,4 +35,15 @@
 }
 ```
 
+## Facebook
+
+`facebook_client_secret.json`
+
+```
+{
+  "app_id":"111111111111111",
+  "app_secret":"a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+  "callback_url":"http://##############/auth/facebook/callback",
+}```
+
 
