@@ -10,6 +10,9 @@ function passportFacebook() {
       clientSecret: facebookSecret.app_secret,
       callbackURL: facebookSecret.callback_url,
       passReqToCallback: true,
+      // in order to use this line, /node_modules/passport-facebook/lib/strategy.js
+      //   must turn off this._convertProfileFields call in line 149
+      // profileFields: ['id', 'email', 'name', 'picture{url}'],
       profileURL: 'https://graph.facebook.com/v2.8/me',
       authorizationURL: 'https://www.facebook.com/v2.8/dialog/oauth',
       tokenURL: 'https://graph.facebook.com/v2.8/oauth/access_token'
@@ -17,7 +20,7 @@ function passportFacebook() {
     (req, accessToken, refreshToken, profile, done) => {
       var user = {};
       // user.email = profile.emails[0].value;
-      // user.image = profile._json.profile_image_url;
+      // user.image = profile.photos[0].value;
       user.displayName = profile.displayName;
 
       user.facebook = {};
