@@ -28,7 +28,7 @@
   "owner":"aaaaaaaaaaaaa",
   "owner_id":"11111111",
   "callback_url":"http://##############/auth/twitter/callback",
-	"App-only_authentication":"https://api.twitter.com/oauth2/token",
+  "App-only_authentication":"https://api.twitter.com/oauth2/token",
   "Request_token_URL":"https://api.twitter.com/oauth/request_token",
   "Authorize_URL":"https://api.twitter.com/oauth/authorize",
   "Access_token_URL":"https://api.twitter.com/oauth/access_token"
@@ -44,6 +44,5 @@
   "app_id":"111111111111111",
   "app_secret":"a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
   "callback_url":"http://##############/auth/facebook/callback",
-}```
-
-
+}
+```
