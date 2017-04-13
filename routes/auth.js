@@ -37,4 +37,13 @@ router.route('/facebook')
     scope: ['email']
   }));
 
+router.route('/github/callback')
+  .get(passport.authenticate('github', {
+    successRedirect: '/users/',
+    failure: '/error/',
+  }));
+
+router.route('/github')
+  .get(passport.authenticate('github'));
+
 module.exports = router;

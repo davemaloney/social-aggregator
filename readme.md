@@ -13,14 +13,5 @@ $ npm start
 
 ## Auth Providers
 
-### Google
+Auth providers and format for secrets included in </config/secrets/readme.md>.
 
-<https://console.developers.google.com/apis/dashboard>
-
-### Facebook
-
-<https://developers.facebook.com/apps/>
-
-### Twitter
-
-<https://apps.twitter.com/>

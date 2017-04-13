@@ -2,6 +2,8 @@
 
 ## Google
 
+<https://console.developers.google.com/apis/dashboard>
+
 `google_client_secret.json`
 
 ```
@@ -18,6 +20,8 @@
 }
 ```
 ## Twitter
+
+<https://apps.twitter.com/>
 
 `twitter_client_secret.json`
 
@@ -37,6 +41,8 @@
 
 ## Facebook
 
+<https://developers.facebook.com/apps/>
+
 `facebook_client_secret.json`
 
 ```
@@ -44,5 +50,19 @@
   "app_id":"111111111111111",
   "app_secret":"a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
   "callback_url":"http://##############/auth/facebook/callback",
+}
+```
+
+## Github
+
+<https://github.com/settings/developers>
+
+`github_client_secret.json`
+
+```
+{
+  "client_id":"a1a1a1a1a1a1a1a1a1a1",
+  "client_secret":"a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+  "callback_url":"http://##############/auth/github/callback"
 }
 ```
