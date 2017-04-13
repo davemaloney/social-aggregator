@@ -12,7 +12,6 @@ function passportGithub() {
     },
     (req, accessToken, refreshToken, profile, done) => {
       var user = {};
-      user.profile = profile;
       user.displayName = profile.displayName;
       user.image = profile._json.avatar_url;
 
