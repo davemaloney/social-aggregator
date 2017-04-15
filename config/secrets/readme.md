@@ -66,3 +66,18 @@
   "callback_url":"http://##############/auth/github/callback"
 }
 ```
+
+## LinkedIn
+
+<https://www.linkedin.com/developer/apps>
+
+`linkedin_client_secret.json`
+
+```
+{
+  "client_id":"a1a1a1a1a1a1a1a1a1a1",
+  "client_secret":"a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+  "callback_url":"http://##############/auth/linkedin/callback"
+}
+```
+

@@ -26,6 +26,15 @@ router.route('/twitter/callback')
 router.route('/twitter')
   .get(passport.authenticate('twitter'));
 
+router.route('/linkedin/callback')
+  .get(passport.authenticate('linkedin', {
+    successRedirect: '/users/',
+    failure: '/error/',
+  }));
+
+router.route('/linkedin')
+  .get(passport.authenticate('linkedin'));
+
 router.route('/facebook/callback')
   .get(passport.authenticate('facebook', {
     successRedirect: '/users/',
