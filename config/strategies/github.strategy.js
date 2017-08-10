@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
-
+const User = require('../../models/userModel');
 const githubSecret = require('../secrets/github_client_secret.json');
 
 function passportGithub() {
@@ -11,15 +11,27 @@ function passportGithub() {
       callbackURL: githubSecret.callback_url,
     },
     (req, accessToken, refreshToken, profile, done) => {
-      var user = {};
-      user.displayName = profile.displayName;
-      user.image = profile._json.avatar_url;
+      const query = {
+        'github.id': profile.id,
+      };
+      User.findOne(query, (error, user) => {
+        if (user) {
+          console.log('found');
+          done(null, user);
+        } else {
+          console.log('not found');
+          const newUser = new User();
+          newUser.displayName = profile.displayName;
+          newUser.image = profile._json.avatar_url;
 
-      user.github = {};
-      user.github.id = profile.id;
-      user.github.token = accessToken;
+          newUser.github = {};
+          newUser.github.id = profile.id;
+          newUser.github.token = accessToken;
 
-      done(null, user);
+          newUser.save();
+          done(null, newUser);
+        }
+      });
     }
   ));
 }

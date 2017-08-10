@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
-
+const User = require('../../models/userModel');
 const linkedinSecret = require('../secrets/linkedin_client_secret.json');
 
 function passportLinkedIn() {
@@ -13,15 +13,27 @@ function passportLinkedIn() {
       state: true,
     },
     (req, accessToken, refreshToken, profile, done) => {
-      var user = {};
-      user.displayName = profile.displayName;
-      // user.image = profile._json.pictureUrl;
+      const query = {
+        'linkedin.id': profile.id,
+      };
+      User.findOne(query, (error, user) => {
+        if (user) {
+          console.log('found');
+          done(null, user);
+        } else {
+          console.log('not found');
+          const newUser = new User();
+          newUser.displayName = profile.displayName;
+          // newUser.image = profile._json.pictureUrl;
 
-      user.linkedin = {};
-      user.linkedin.id = profile.id;
-      user.linkedin.token = accessToken;
+          newUser.linkedin = {};
+          newUser.linkedin.id = profile.id;
+          newUser.linkedin.token = accessToken;
 
-      done(null, user);
+          newUser.save();
+          done(null, newUser);
+        }
+      });
     }
   ));
 }

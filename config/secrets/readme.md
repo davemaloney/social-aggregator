@@ -2,7 +2,7 @@
 
 ## Google
 
-<https://console.developers.google.com/apis/dashboard>
+[https://console.developers.google.com/apis/dashboard]()
 
 `google_client_secret.json`
 
@@ -21,7 +21,7 @@
 ```
 ## Twitter
 
-<https://apps.twitter.com/>
+[https://apps.twitter.com/]()
 
 `twitter_client_secret.json`
 
@@ -41,7 +41,7 @@
 
 ## Facebook
 
-<https://developers.facebook.com/apps/>
+[https://developers.facebook.com/apps/]()
 
 `facebook_client_secret.json`
 
@@ -55,7 +55,7 @@
 
 ## Github
 
-<https://github.com/settings/developers>
+[https://github.com/settings/developers]()
 
 `github_client_secret.json`
 
@@ -69,7 +69,7 @@
 
 ## LinkedIn
 
-<https://www.linkedin.com/developer/apps>
+[https://www.linkedin.com/developer/apps]()
 
 `linkedin_client_secret.json`
 

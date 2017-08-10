@@ -1,6 +1,6 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
-
+const User = require('../../models/userModel');
 const facebookSecret = require('../secrets/facebook_client_secret.json');
 
 function passportFacebook() {
@@ -15,19 +15,31 @@ function passportFacebook() {
       // profileFields: ['id', 'email', 'name', 'picture{url}'],
       profileURL: 'https://graph.facebook.com/v2.8/me',
       authorizationURL: 'https://www.facebook.com/v2.8/dialog/oauth',
-      tokenURL: 'https://graph.facebook.com/v2.8/oauth/access_token'
+      tokenURL: 'https://graph.facebook.com/v2.8/oauth/access_token',
     },
     (req, accessToken, refreshToken, profile, done) => {
-      var user = {};
-      // user.email = profile.emails[0].value;
-      // user.image = profile.photos[0].value;
-      user.displayName = profile.displayName;
+      const query = {
+        'facebook.id': profile.id,
+      };
+      User.findOne(query, (error, user) => {
+        if (user) {
+          console.log('found');
+          done(null, user);
+        } else {
+          console.log('not found');
+          const newUser = new User();
+          // newUser.email = profile.emails[0].value;
+          // newUser.image = profile.photos[0].value;
+          newUser.displayName = profile.displayName;
 
-      user.facebook = {};
-      user.facebook.id = profile.id;
-      user.facebook.token = accessToken;
+          newUser.facebook = {};
+          newUser.facebook.id = profile.id;
+          newUser.facebook.token = accessToken;
 
-      done(null, user);
+          newUser.save();
+          done(null, newUser);
+        }
+      });
     }
   ));
 }
