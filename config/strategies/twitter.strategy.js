@@ -1,14 +1,14 @@
 const passport = require('passport');
-const TwitterStrategy = require('passport-twitter').Strategy;
 const User = require('../../models/userModel');
-const twitterSecret = require('../secrets/twitter_client_secret.json');
+const clientSecrets = require('../secrets/client_secrets.json');
+const TwitterStrategy = require('passport-twitter').Strategy;
 
 function passportTwitter() {
   passport.use(new TwitterStrategy(
     {
-      consumerKey: twitterSecret.consumer_key,
-      consumerSecret: twitterSecret.consumer_secret,
-      callbackURL: twitterSecret.callback_url,
+      consumerKey: clientSecrets.twitter.consumer_key,
+      consumerSecret: clientSecrets.twitter.consumer_secret,
+      callbackURL: clientSecrets.twitter.callback_url,
       passReqToCallback: true,
     },
     (req, token, tokenSecret, profile, done) => {
@@ -17,18 +17,17 @@ function passportTwitter() {
       };
       User.findOne(query, (error, user) => {
         if (user) {
-          console.log('found');
           done(null, user);
         } else {
-          console.log('not found');
           const newUser = new User();
-          // newUser.email = profile.emails[0].value;
-          newUser.image = profile._json.profile_image_url;
           newUser.displayName = profile.displayName;
+          newUser.image = profile._json.profile_image_url;
+          // newUser.email = 
 
           newUser.twitter = {};
           newUser.twitter.id = profile.id;
           newUser.twitter.token = token;
+          newUser.twitter.tokenSecret = tokenSecret;
 
           newUser.save();
           done(null, newUser);

@@ -1,21 +1,19 @@
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
 const User = require('../../models/userModel');
-const facebookSecret = require('../secrets/facebook_client_secret.json');
+const clientSecrets = require('../secrets/client_secrets.json');
+const FacebookStrategy = require('passport-facebook').Strategy;
 
 function passportFacebook() {
   passport.use(new FacebookStrategy(
     {
-      clientID: facebookSecret.app_id,
-      clientSecret: facebookSecret.app_secret,
-      callbackURL: facebookSecret.callback_url,
+      clientID: clientSecrets.facebook.app_id,
+      clientSecret: clientSecrets.facebook.app_secret,
+      callbackURL: clientSecrets.facebook.callback_url,
       passReqToCallback: true,
-      // in order to use this line, /node_modules/passport-facebook/lib/strategy.js
-      //   must turn off this._convertProfileFields call in line 149
-      // profileFields: ['id', 'email', 'name', 'picture{url}'],
-      profileURL: 'https://graph.facebook.com/v2.8/me',
-      authorizationURL: 'https://www.facebook.com/v2.8/dialog/oauth',
-      tokenURL: 'https://graph.facebook.com/v2.8/oauth/access_token',
+      profileFields: ['id', 'email', 'displayName'],
+      profileURL: 'https://graph.facebook.com/v2.10/me',
+      authorizationURL: 'https://www.facebook.com/v2.10/dialog/oauth',
+      tokenURL: 'https://graph.facebook.com/v2.10/oauth/access_token',
     },
     (req, accessToken, refreshToken, profile, done) => {
       const query = {
@@ -23,18 +21,17 @@ function passportFacebook() {
       };
       User.findOne(query, (error, user) => {
         if (user) {
-          console.log('found');
           done(null, user);
         } else {
-          console.log('not found');
           const newUser = new User();
-          // newUser.email = profile.emails[0].value;
-          // newUser.image = profile.photos[0].value;
           newUser.displayName = profile.displayName;
+          // newUser.image = profile.photos[0].value;
+          newUser.email = profile._json.email;
 
           newUser.facebook = {};
           newUser.facebook.id = profile.id;
           newUser.facebook.token = accessToken;
+
 
           newUser.save();
           done(null, newUser);

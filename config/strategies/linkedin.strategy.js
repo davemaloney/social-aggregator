@@ -1,14 +1,14 @@
 const passport = require('passport');
-const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const User = require('../../models/userModel');
-const linkedinSecret = require('../secrets/linkedin_client_secret.json');
+const clientSecrets = require('../secrets/client_secrets.json');
+const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 function passportLinkedIn() {
   passport.use(new LinkedInStrategy(
     {
-      clientID: linkedinSecret.client_id,
-      clientSecret: linkedinSecret.client_secret,
-      callbackURL: linkedinSecret.callback_url,
+      clientID: clientSecrets.linkedin.client_id,
+      clientSecret: clientSecrets.linkedin.client_secret,
+      callbackURL: clientSecrets.linkedin.callback_url,
       scope: ['r_emailaddress', 'r_basicprofile'],
       state: true,
     },
@@ -18,17 +18,17 @@ function passportLinkedIn() {
       };
       User.findOne(query, (error, user) => {
         if (user) {
-          console.log('found');
           done(null, user);
         } else {
-          console.log('not found');
           const newUser = new User();
           newUser.displayName = profile.displayName;
-          // newUser.image = profile._json.pictureUrl;
+          newUser.image = profile._json.pictureUrl;
+          newUser.email = profile._json.emailAddress;
 
           newUser.linkedin = {};
           newUser.linkedin.id = profile.id;
           newUser.linkedin.token = accessToken;
+
 
           newUser.save();
           done(null, newUser);

@@ -1,14 +1,14 @@
 const passport = require('passport');
-const GithubStrategy = require('passport-github').Strategy;
 const User = require('../../models/userModel');
-const githubSecret = require('../secrets/github_client_secret.json');
+const clientSecrets = require('../secrets/client_secrets.json');
+const GithubStrategy = require('passport-github').Strategy;
 
 function passportGithub() {
   passport.use(new GithubStrategy(
     {
-      clientID: githubSecret.client_id,
-      clientSecret: githubSecret.client_secret,
-      callbackURL: githubSecret.callback_url,
+      clientID: clientSecrets.github.client_id,
+      clientSecret: clientSecrets.github.client_secret,
+      callbackURL: clientSecrets.github.callback_url,
     },
     (req, accessToken, refreshToken, profile, done) => {
       const query = {
@@ -16,17 +16,17 @@ function passportGithub() {
       };
       User.findOne(query, (error, user) => {
         if (user) {
-          console.log('found');
           done(null, user);
         } else {
-          console.log('not found');
           const newUser = new User();
           newUser.displayName = profile.displayName;
           newUser.image = profile._json.avatar_url;
+          // newUser.email = 
 
           newUser.github = {};
           newUser.github.id = profile.id;
           newUser.github.token = accessToken;
+
 
           newUser.save();
           done(null, newUser);
