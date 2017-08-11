@@ -1,6 +1,7 @@
 const express = require('express');
+const facebookService = require('../services/facebook');
+
 const router = express.Router();
-const facebook = require('../services/facebook')();
 
 router.use('/', (req, res, next) => {
   if (!req.user) {
@@ -11,12 +12,16 @@ router.use('/', (req, res, next) => {
 /* GET users listing. */
 router.get('/', (req, res) => {
   if (req.user.facebook) {
-    facebook.getImage(req.user.facebook.token, (results) => {
+    facebookService().getImage(req.user.facebook.token, (results) => {
       req.user.image = results;
-      res.render('users',{user: req.user});
+      res.render('users', {
+        user: req.user
+      });
     });
   } else {
-    res.render('users',{user: req.user});
+    res.render('users', {
+      user: req.user
+    });
   }
 });
 

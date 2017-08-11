@@ -21,7 +21,7 @@ function passportGithub() {
           const newUser = new User();
           newUser.displayName = profile.displayName;
           newUser.image = profile._json.avatar_url;
-          // newUser.email = 
+          // newUser.email =
 
           newUser.github = {};
           newUser.github.id = profile.id;

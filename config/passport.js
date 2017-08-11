@@ -1,20 +1,27 @@
-var passport = require('passport');
+const passport = require('passport');
+const googleStrategy = require('./strategies/google.strategy');
+const twitterStrategy = require('./strategies/twitter.strategy');
+const facebookStrategy = require('./strategies/facebook.strategy');
+const githubStrategy = require('./strategies/github.strategy');
+const linkedinStrategy = require('./strategies/linkedin.strategy');
 
-module.exports = function(app) {
+function Passport(app) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.serializeUser(function(user, done){
-    done(null, user)
-  });
-
-  passport.deserializeUser(function(user, done){
+  passport.serializeUser((user, done) => {
     done(null, user);
   });
 
-  require('./strategies/google.strategy')();
-  require('./strategies/twitter.strategy')();
-  require('./strategies/facebook.strategy')();
-  require('./strategies/github.strategy')();
-  require('./strategies/linkedin.strategy')();
+  passport.deserializeUser((user, done) => {
+    done(null, user);
+  });
+
+  googleStrategy();
+  twitterStrategy();
+  facebookStrategy();
+  githubStrategy();
+  linkedinStrategy();
 }
+
+module.exports = Passport;

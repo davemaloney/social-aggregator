@@ -22,7 +22,7 @@ function passportTwitter() {
           const newUser = new User();
           newUser.displayName = profile.displayName;
           newUser.image = profile._json.profile_image_url;
-          // newUser.email = 
+          // newUser.email =
 
           newUser.twitter = {};
           newUser.twitter.id = profile.id;
