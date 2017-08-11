@@ -14,7 +14,9 @@ var auth = require('./routes/auth');
 
 var app = express();
 
-var db = mongoose.connect('mongodb://localhost/socialAgg')
+var db = mongoose.connect('mongodb://localhost/socialAgg', {
+  useMongoClient: true,
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +29,9 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({secret: 'anything'}));
+app.use(session({secret: 'anything', 
+                 saveUninitialized: true,
+                 resave: true}));
 
 require('./config/passport')(app);
 
