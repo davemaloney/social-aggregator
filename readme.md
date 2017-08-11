@@ -13,5 +13,5 @@ $ npm start
 
 ## Auth Providers
 
-Auth providers and format for secrets included in [config/secrets/readme.md]()
+Auth providers and format for secrets included in [config/secrets/readme.md](config/secrets/readme.md)
 
